@@ -56,7 +56,8 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+const int MAX_LED = 4;
+int index_led = 0;
 /* USER CODE END 0 */
 
 /**
@@ -229,13 +230,19 @@ int counter = 100;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	counter--;
 	if (counter == 50){
-		display7SEGWithEn();
+		update7SEG(index_led++);
+		if (index_led >= MAX_LED){
+			index_led = 0;
+		}
 	}
 	if (counter <= 0){
 		HAL_GPIO_TogglePin(LED_RED_GPIO_Port,LED_RED_Pin);
 		HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
-		display7SEGWithEn();
+		update7SEG(index_led++);
 		counter = 100;
+		if (index_led >= MAX_LED){
+			index_led = 0;
+		}
 	}
 }
 
