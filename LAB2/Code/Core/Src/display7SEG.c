@@ -31,7 +31,7 @@ void display7SEG(int num){
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, (mask & 0x20) ? GPIO_PIN_RESET : GPIO_PIN_SET);
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, (mask & 0x40) ? GPIO_PIN_RESET : GPIO_PIN_SET);
 }
-int led_buffer[4] = {1, 2, 3, 5};
+int led_buffer[4];
 void update7SEG(int index){
 	switch (index){
 		case 0:
@@ -65,4 +65,11 @@ void update7SEG(int index){
 		default:
 			break;
 	}
+}
+int hour, minute, second;
+void updateClockBuffer(){
+	led_buffer[0] = hour / 10;
+	led_buffer[1] = hour % 10;
+	led_buffer[2] = minute / 10;
+	led_buffer[3] = minute % 10;
 }

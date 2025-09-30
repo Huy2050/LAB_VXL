@@ -58,6 +58,7 @@ static void MX_TIM2_Init(void);
 /* USER CODE BEGIN 0 */
 const int MAX_LED = 4;
 int index_led = 0;
+int hour = 0, minute = 0, second = 0;
 /* USER CODE END 0 */
 
 /**
@@ -98,7 +99,20 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+	  second++;
+	  if (second >= 60){
+		  second = 0;
+		  minute++;
+	  }
+	  if (minute >= 60){
+		  minute = 0;
+		  hour++;
+	  }
+	  if (hour >= 24){
+		  hour = 0;
+	  }
+	  updateClockBuffer();
+	  HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
