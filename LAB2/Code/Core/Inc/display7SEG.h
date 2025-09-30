@@ -13,4 +13,5 @@ void update7SEG(int index);
 void updateClockBuffer();
 void initColLEDMatrix(int index);
 void updateLEDMatrix(int index);
+void shiftAnimation();
 #endif /* INC_DISPLAY7SEG_H_ */

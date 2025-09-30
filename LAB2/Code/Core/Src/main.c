@@ -124,6 +124,7 @@ int main(void)
 			  hour = 0;
 		  }
 		  updateClockBuffer();
+		  shiftAnimation();
 		  setTimer1(100);
 	  }
 	  if (timer2_flag == 1){

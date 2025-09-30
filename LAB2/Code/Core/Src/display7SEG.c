@@ -134,3 +134,10 @@ void updateLEDMatrix(int index){
  	 		break;
 	 }
   }
+void shiftAnimation(){
+	uint8_t temp = matrix_buffer[7];
+	for (int i = 7; i > 0; i--){
+		matrix_buffer[i] = matrix_buffer[i - 1];
+	}
+	matrix_buffer[0] = temp;
+}
