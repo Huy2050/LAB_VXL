@@ -73,3 +73,64 @@ void updateClockBuffer(){
 	led_buffer[2] = minute / 10;
 	led_buffer[3] = minute % 10;
 }
+uint8_t matrix_buffer[8] = {
+    0x00,  // Column 0: 00000000
+    0x00,  // Column 1: 00000000
+    0x7E,  // Column 2: 01111110
+    0x09,  // Column 3: 00001001
+    0x7E,  // Column 4: 01111110
+    0x00,  // Column 5: 00000000
+    0x00,  // Column 6: 00000000
+    0x00   // Column 7: 00000000 (
+};
+void initColLEDMatrix(int index){
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_13, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_SET);
+	uint8_t display = matrix_buffer[index];
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, (display & 0x01) ? GPIO_PIN_RESET : GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, (display & 0x02) ? GPIO_PIN_RESET : GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, (display & 0x04) ? GPIO_PIN_RESET : GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, (display & 0x08) ? GPIO_PIN_RESET : GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, (display & 0x10) ? GPIO_PIN_RESET : GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, (display & 0x20) ? GPIO_PIN_RESET : GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, (display & 0x40) ? GPIO_PIN_RESET : GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, (display & 0x80) ? GPIO_PIN_RESET : GPIO_PIN_SET);
+}
+void updateLEDMatrix(int index){
+	initColLEDMatrix(index);
+	switch (index){
+ 	 	 case 0:
+ 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET);
+ 			break;
+ 	 	 case 1:
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_RESET);
+			break;
+ 	 	 case 2:
+
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_RESET);
+			break;
+ 	 	 case 3:
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);
+			break;
+ 	 	 case 4:
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_RESET);
+			break;
+ 	 	 case 5:
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_13, GPIO_PIN_RESET);
+			break;
+ 	 	 case 6:
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, GPIO_PIN_RESET);
+			break;
+ 	 	 case 7:
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_RESET);
+			break;
+ 	 	 default:
+ 	 		break;
+	 }
+  }

@@ -11,4 +11,6 @@ extern int hour, minute, second;
 void display7SEG(int num);
 void update7SEG(int index);
 void updateClockBuffer();
+void initColLEDMatrix(int index);
+void updateLEDMatrix(int index);
 #endif /* INC_DISPLAY7SEG_H_ */

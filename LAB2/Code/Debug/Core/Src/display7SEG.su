@@ -1,3 +1,5 @@
 display7SEG.c:21:6:display7SEG	24	static
 display7SEG.c:35:6:update7SEG	16	static
 display7SEG.c:70:6:updateClockBuffer	4	static
+display7SEG.c:86:6:initColLEDMatrix	24	static
+display7SEG.c:105:6:updateLEDMatrix	16	static
