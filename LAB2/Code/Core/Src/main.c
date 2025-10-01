@@ -100,14 +100,14 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   setTimer1(100);
-  setTimer2(5);
+  setTimer2(25);
+  setTimer3(5);
   while (1)
   {
     /* USER CODE END WHILE */
-	  if (timer1_flag == 1){
+	  if (isTimer1Expired(timer1_flag)){
 		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
 		  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
-		  update7SEG(index_led++);
 		  if (index_led >= MAX_LED){
 			  index_led = 0;
 		  }
@@ -127,12 +127,16 @@ int main(void)
 		  shiftAnimation();
 		  setTimer1(100);
 	  }
-	  if (timer2_flag == 1){
+	  if (isTimer2Expired(timer2_flag)){
+		  update7SEG(index_led++);
+		  setTimer2(25);
+	  }
+	  if (isTimer3Expired(timer3_flag)){
 		  updateLEDMatrix(index_led_matrix++);
 		  if (index_led_matrix >= MAX_LED_MATRIX){
 			  index_led_matrix = 0;
 		  }
-		  setTimer2(5);
+		  setTimer3(5);
 	  }
     /* USER CODE BEGIN 3 */
   }
