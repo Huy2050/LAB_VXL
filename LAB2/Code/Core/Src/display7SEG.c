@@ -75,11 +75,11 @@ void updateClockBuffer(){
 }
 uint8_t matrix_buffer[8] = {
     0x00,  // Column 0: 00000000
-    0x00,  // Column 1: 00000000
-    0x7E,  // Column 2: 01111110
+    0x7E,  // Column 1: 01111110
+    0x09,  // Column 2: 00001001
     0x09,  // Column 3: 00001001
-    0x7E,  // Column 4: 01111110
-    0x00,  // Column 5: 00000000
+    0x09,  // Column 4: 00001001
+    0x7E,  // Column 5: 01111110
     0x00,  // Column 6: 00000000
     0x00   // Column 7: 00000000 (
 };

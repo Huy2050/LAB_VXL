@@ -5,10 +5,12 @@
  *      Author: Admin
  */
 #include "software_timer.h"
+int timer3_flag = 0;
 int timer2_flag = 0;
 int timer1_flag = 0;
 int timer1_counter = 0;
 int timer2_counter = 0;
+int timer3_counter = 0;
 void setTimer1(int duration){
 	timer1_counter = duration;
 	timer1_flag = 0;
@@ -16,6 +18,28 @@ void setTimer1(int duration){
 void setTimer2(int duration){
 	timer2_counter = duration;
 	timer2_flag = 0;
+}
+void setTimer3(int duration){
+	timer3_counter = duration;
+	timer3_flag = 0;
+}
+int isTimer1Expired(int timer1_flag){
+	if (timer1_flag == 1){
+		return 1;
+	}
+	return 0;
+}
+int isTimer2Expired(int timer2_flag){
+	if (timer2_flag == 1){
+		return 1;
+	}
+	return 0;
+}
+int isTimer3Expired(int timer3_flag){
+	if (timer3_flag == 1){
+		return 1;
+	}
+	return 0;
 }
 void timerRun(){
 	if (timer1_counter > 0){
@@ -30,5 +54,10 @@ void timerRun(){
 	    	timer2_flag = 1;
 	    }
 	}
+	if (timer3_counter > 0){
+	    timer3_counter--;
+	    if(timer3_counter == 0){
+	    	timer3_flag = 1;
+	    }
+	}
 }
-
