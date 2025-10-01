@@ -100,14 +100,18 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   setTimer1(100);
-  setTimer2(25);
-  setTimer3(5);
+  setTimer2(100);
+  setTimer3(25);
+  setTimer4(5);
   while (1)
   {
     /* USER CODE END WHILE */
 	  if (isTimer1Expired(timer1_flag)){
 		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
 		  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
+		  setTimer1(100);
+	  }
+	  if (isTimer2Expired(timer2_flag)){
 		  if (index_led >= MAX_LED){
 			  index_led = 0;
 		  }
@@ -124,18 +128,18 @@ int main(void)
 			  hour = 0;
 		  }
 		  updateClockBuffer();
-		  setTimer1(100);
-	  }
-	  if (isTimer2Expired(timer2_flag)){
-		  update7SEG(index_led++);
-		  setTimer2(25);
+		  setTimer2(100);
 	  }
 	  if (isTimer3Expired(timer3_flag)){
+		  update7SEG(index_led++);
+		  setTimer3(25);
+	  }
+	  if (isTimer4Expired(timer4_flag)){
 		  updateLEDMatrix(index_led_matrix++);
 		  if (index_led_matrix >= MAX_LED_MATRIX){
 			  index_led_matrix = 0;
 		  }
-		  setTimer3(5);
+		  setTimer4(5);
 	  }
     /* USER CODE BEGIN 3 */
   }
