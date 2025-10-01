@@ -676,17 +676,17 @@ void shiftAnimation(){
  80005f8:	b480      	push	{r7}
  80005fa:	b083      	sub	sp, #12
  80005fc:	af00      	add	r7, sp, #0
-	uint8_t temp = matrix_buffer[7];
+	uint8_t temp = matrix_buffer[0];
  80005fe:	4b0e      	ldr	r3, [pc, #56]	; (8000638 <shiftAnimation+0x40>)
- 8000600:	79db      	ldrb	r3, [r3, #7]
+ 8000600:	781b      	ldrb	r3, [r3, #0]
  8000602:	70fb      	strb	r3, [r7, #3]
-	for (int i = 7; i > 0; i--){
- 8000604:	2307      	movs	r3, #7
+	for (int i = 0; i < 7; i++){
+ 8000604:	2300      	movs	r3, #0
  8000606:	607b      	str	r3, [r7, #4]
  8000608:	e00b      	b.n	8000622 <shiftAnimation+0x2a>
-		matrix_buffer[i] = matrix_buffer[i - 1];
+		matrix_buffer[i] = matrix_buffer[i + 1];
  800060a:	687b      	ldr	r3, [r7, #4]
- 800060c:	3b01      	subs	r3, #1
+ 800060c:	3301      	adds	r3, #1
  800060e:	4a0a      	ldr	r2, [pc, #40]	; (8000638 <shiftAnimation+0x40>)
  8000610:	5cd1      	ldrb	r1, [r2, r3]
  8000612:	4a09      	ldr	r2, [pc, #36]	; (8000638 <shiftAnimation+0x40>)
@@ -694,18 +694,18 @@ void shiftAnimation(){
  8000616:	4413      	add	r3, r2
  8000618:	460a      	mov	r2, r1
  800061a:	701a      	strb	r2, [r3, #0]
-	for (int i = 7; i > 0; i--){
+	for (int i = 0; i < 7; i++){
  800061c:	687b      	ldr	r3, [r7, #4]
- 800061e:	3b01      	subs	r3, #1
+ 800061e:	3301      	adds	r3, #1
  8000620:	607b      	str	r3, [r7, #4]
  8000622:	687b      	ldr	r3, [r7, #4]
- 8000624:	2b00      	cmp	r3, #0
- 8000626:	dcf0      	bgt.n	800060a <shiftAnimation+0x12>
+ 8000624:	2b06      	cmp	r3, #6
+ 8000626:	ddf0      	ble.n	800060a <shiftAnimation+0x12>
 	}
-	matrix_buffer[0] = temp;
+	matrix_buffer[7] = temp;
  8000628:	4a03      	ldr	r2, [pc, #12]	; (8000638 <shiftAnimation+0x40>)
  800062a:	78fb      	ldrb	r3, [r7, #3]
- 800062c:	7013      	strb	r3, [r2, #0]
+ 800062c:	71d3      	strb	r3, [r2, #7]
 }
  800062e:	bf00      	nop
  8000630:	370c      	adds	r7, #12
