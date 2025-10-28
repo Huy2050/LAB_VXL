@@ -1,0 +1,4 @@
+trafficLight.c:8:6:display7SEGLine1A	16	static
+trafficLight.c:18:6:display7SEGLine1B	16	static
+trafficLight.c:28:6:display7SEGLine2A	16	static
+trafficLight.c:38:6:display7SEGLine2B	16	static
