@@ -11,8 +11,9 @@
 #include "main.h"
 #include "software_timer.h"
 
-void display7SEGLine1A(int num);
-void display7SEGLine1B(int num);
-void display7SEGLine2A(int num);
-void display7SEGLine2B(int num);
+void display7SEGLine1(int num);
+void display7SEGLine1(int num);
+void display7SEGLine2(int num);
+void update7SEG(int index);
+void updateBuffer();
 #endif /* INC_TRAFFICLIGHT_H_ */

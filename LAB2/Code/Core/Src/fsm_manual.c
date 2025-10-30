@@ -1,111 +1,92 @@
 /*
- * fsm_auto.c
+ * fsm_manual.c
  *
- *  Created on: Oct 28, 2025
+ *  Created on: Oct 30, 2025
  *      Author: Admin
  */
-#include "fsm_auto.h"
+
+
+#include "fsm_manual.h"
 #define INIT 0
 #define RED_GREEN 1
 #define RED_AMBER 2
 #define GREEN_RED 3
 #define AMBER_RED 4
-int status = 0;
-int idx_led = 0;
-void fsm_auto_run(){
-	switch (status){
+#define ERROR 5
+int state = INIT;
+void fsm_manual_run(){
+	switch (state){
 		case INIT:
-			setTimer(0,500);
-			setTimer(1,300);
-			setTimer(2,10);
-			status = RED_GREEN;
-			break;
+			state = RED_GREEN;
 		case RED_GREEN:
-			if (isTimerExpired(2)){
-				update7SEG(idx_led++);
-				setTimer(2,10);
-				if (idx_led > 1){
-					idx_led = 0;
-				}
-			}
-			updateBuffer();
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_SET);
-			if (isTimerExpired(1) == 1){
-				status = RED_AMBER;
-				setTimer(1,200);
-				setTimer(0,200);
+			if (isButtonPressed(1)){
+				state = RED_AMBER;
+				setTimer(0, 200);
+			}
+			if (isButtonPressed(2)){
+				state = ERROR;
+				setTimer(0,50);
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);
 			}
 			break;
 		case RED_AMBER:
-			if (isTimerExpired(2)){
-				update7SEG(idx_led++);
-				setTimer(2,10);
-				if (idx_led > 1){
-					idx_led = 0;
-				}
-			}
-			updateBuffer();
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_SET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);
-			if (isTimerExpired(0) == 1){
-				status = GREEN_RED;
-				setTimer(1,500);
-				setTimer(0,300);
+			if (isTimerExpired(0)){
+				state = GREEN_RED;
 			}
 			break;
 		case GREEN_RED:
-			if (isTimerExpired(2)){
-				update7SEG(idx_led++);
-				setTimer(2,10);
-				if (idx_led > 1){
-					idx_led = 0;
-				}
-			}
-			updateBuffer();
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_SET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);
-			if (isTimerExpired(0) == 1){
-				status = AMBER_RED;
-				setTimer(0,200);
-				setTimer(1,200);
+			if (isButtonPressed(1)){
+				state = AMBER_RED;
+				setTimer(0, 200);
+			}
+			if (isButtonPressed(2)){
+				state = ERROR;
+				setTimer(0, 50);
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_RESET);
 			}
 			break;
 		case AMBER_RED:
-			if (isTimerExpired(2)){
-				update7SEG(idx_led++);
-				setTimer(2,10);
-				if (idx_led > 1){
-					idx_led = 0;
-				}
-			}
-			updateBuffer();
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_SET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);
-			if (isTimerExpired(1) == 1){
-				status = RED_GREEN;
-				setTimer(0,500);
-				setTimer(1,300);
+			if (isTimerExpired(0)){
+				state = RED_GREEN;
+				setTimer(0,200);
 			}
 			break;
+		case ERROR:
+			if (isTimerExpired(0)){
+				setTimer(0,50);
+				HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_7);
+				HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_10);
+			}
+			if (isButtonPressed(2)){
+				state = INIT;
+			}
 		default:
 			break;
 	}
 }
-
