@@ -11,6 +11,8 @@
 #include "trafficLight.h"
 #include "main.h"
 #include "software_timer.h"
+#include "global.h"
+
 void fsm_auto_run();
 
 #endif /* INC_FSM_AUTO_H_ */

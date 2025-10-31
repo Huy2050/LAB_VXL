@@ -9,6 +9,7 @@
 #define INC_BUTTON_H_
 
 #include "main.h"
+#include "global.h"
 
 int isButtonPressed(int index);
 void getKeyInput();

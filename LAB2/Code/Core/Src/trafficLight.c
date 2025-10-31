@@ -52,3 +52,27 @@ void updateBuffer(){
 	led_buffer2[0] = secLine2 / 10;
 	led_buffer2[1] = secLine2 % 10;
 }
+void updateBufferForConfig(){
+	switch (status){
+		case RED_CONFIG:
+			led_buffer1[0] = 0;
+			led_buffer1[1] = 1;
+			led_buffer2[0] = temp[0] / 10;
+			led_buffer2[1] = temp[0] % 10;
+			break;
+		case GREEN_CONFIG:
+			led_buffer1[0] = 0;
+			led_buffer1[1] = 2;
+			led_buffer2[0] = temp[1] / 10;
+			led_buffer2[1] = temp[1] % 10;
+			break;
+		case YELLOW_CONFIG:
+			led_buffer1[0] = 0;
+			led_buffer1[1] = 3;
+			led_buffer2[0] = temp[2] / 10;
+			led_buffer2[1] = temp[2] % 10;
+			break;
+		default:
+			break;
+	}
+}

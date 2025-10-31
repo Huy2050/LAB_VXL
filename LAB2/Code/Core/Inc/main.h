@@ -88,6 +88,8 @@ void Error_Handler(void);
 #define EN0_GPIO_Port GPIOA
 #define EN1_Pin GPIO_PIN_13
 #define EN1_GPIO_Port GPIOA
+#define button4_Pin GPIO_PIN_14
+#define button4_GPIO_Port GPIOA
 #define SEG1D_Pin GPIO_PIN_3
 #define SEG1D_GPIO_Port GPIOB
 #define SEG2A_Pin GPIO_PIN_4

@@ -5,9 +5,7 @@
  *      Author: Admin
  */
 #include "software_timer.h"
-#define MAX_TIMER 5
-int counter[MAX_TIMER] = {0};
-int flagTimer[MAX_TIMER] = {0};
+int flagTimer[MAX_TIMER] = {[0 ... MAX_TIMER - 1] = 0};
 void setTimer(int index, int duration){
 	counter[index] = duration;
 	flagTimer[index] = 0;

@@ -27,6 +27,9 @@
 #include "trafficLight.h"
 #include "fsm_auto.h"
 #include "fsm_manual.h"
+#include "fsm_config.h"
+#include "fsm.h"
+#include "global.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -100,7 +103,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  fsm_manual_run();
+	  fsm_auto_run();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -221,8 +224,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : button1_Pin button2_Pin button3_Pin */
-  GPIO_InitStruct.Pin = button1_Pin|button2_Pin|button3_Pin;
+  /*Configure GPIO pins : button1_Pin button2_Pin button3_Pin button4_Pin */
+  GPIO_InitStruct.Pin = button1_Pin|button2_Pin|button3_Pin|button4_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);

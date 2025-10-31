@@ -2,3 +2,4 @@ trafficLight.c:10:6:display7SEGLine1	16	static
 trafficLight.c:20:6:display7SEGLine2	16	static
 trafficLight.c:29:6:update7SEG	16	static
 trafficLight.c:47:6:updateBuffer	16	static
+trafficLight.c:55:6:updateBufferForConfig	4	static

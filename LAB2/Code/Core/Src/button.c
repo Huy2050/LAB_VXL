@@ -5,9 +5,6 @@
  *      Author: Admin
  */
 #include "button.h"
-#define NORMAL_STATE 1
-#define PRESSED_STATE 0
-#define MAX_BUTTON 3
 int KeyReg0[MAX_BUTTON] = { [0 ... MAX_BUTTON-1] = NORMAL_STATE };
 int KeyReg1[MAX_BUTTON] = { [0 ... MAX_BUTTON-1] = NORMAL_STATE };
 int KeyReg2[MAX_BUTTON] = { [0 ... MAX_BUTTON-1] = NORMAL_STATE };
@@ -42,7 +39,7 @@ void getKeyInput(){
     KeyReg0[0] = HAL_GPIO_ReadPin(button1_GPIO_Port, button1_Pin);
     KeyReg0[1] = HAL_GPIO_ReadPin(button2_GPIO_Port, button2_Pin);
     KeyReg0[2] = HAL_GPIO_ReadPin(button3_GPIO_Port, button3_Pin);
-
+    KeyReg0[3] = HAL_GPIO_ReadPin(button4_GPIO_Port, button4_Pin);
     // Lọc chống dội và phát hiện sự kiện
     for(int i = 0; i < MAX_BUTTON; i++){
         if((KeyReg0[i] == KeyReg1[i]) && (KeyReg1[i] == KeyReg2[i])){
