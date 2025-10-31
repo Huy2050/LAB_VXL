@@ -8,14 +8,21 @@
 void fsm_config_run(){
 	switch (status){
 		case INIT_CONFIG:
+			resetLED();
 			status = RED_CONFIG;
 			setTimer(2,10);
 			break;
 		case RED_CONFIG:
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);
 			if (isButtonPressed(1)){
 				temp[0]++;
 			}
-			if (isButtonHold(1)){
+			else if (isButtonHold(1)){
 				temp[0] += 5;
 			}
 			if (temp[0] > 99){
@@ -34,10 +41,16 @@ void fsm_config_run(){
 			}
 			break;
 		case GREEN_CONFIG:
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_SET);
 			if (isButtonPressed(1)){
 				temp[1]++;
 			}
-			if (isButtonHold(1)){
+			else if (isButtonHold(1)){
 				temp[1] += 5;
 			}
 			if (temp[1] > 99){
@@ -56,10 +69,16 @@ void fsm_config_run(){
 			}
 			break;
 		case YELLOW_CONFIG:
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);
 			if (isButtonPressed(1)){
 				temp[2]++;
 			}
-			if (isButtonHold(1)){
+			else if (isButtonHold(1)){
 				temp[2] += 5;
 			}
 			if (temp[2] > 99){
@@ -80,8 +99,13 @@ void fsm_config_run(){
 				for (int i = 0; i < MAX_LED; i++){
 					time[i] = temp[i];
 				}
-				status = INIT_AUTO;
 			}
+			if (isButtonHold(0) && isButtonPressed(0)){
+				mode = INIT_SYSTEM;
+			}
+			break;
+		default:
+			break;
 	}
 }
 

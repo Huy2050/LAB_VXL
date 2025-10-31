@@ -16,4 +16,5 @@ void display7SEGLine2(int num);
 void update7SEG(int index);
 void updateBuffer();
 void updateBufferForConfig();
+void resetLED();
 #endif /* INC_TRAFFICLIGHT_H_ */

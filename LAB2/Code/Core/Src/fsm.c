@@ -7,35 +7,45 @@
 
 #include "fsm.h"
 void fsm_run(){
-	switch (status){
+	if (isTimerExpired(4)){
+		HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);
+		setTimer(4,50);
+	}
+	switch (mode){
 		case INIT_SYSTEM:
+			mode = AUTO;
 			status = INIT_AUTO;
 			break;
-		case INIT_AUTO:
+		case AUTO:
 			fsm_auto_run();
 			if (isButtonPressed(0)){
+				mode = MANUAL;
 				status = INIT_MANUAL;
 			}
 			if (isButtonPressed(3)){
-				status = BLINK_MODE;
+				mode = BLINK_MODE;
 				setTimer(0,50);
+				resetLED();
 			}
 			break;
-		case INIT_MANUAL:
+		case MANUAL:
 			fsm_manual_run();
 			if (isButtonPressed(0)){
+				mode = CONFIG;
 				status = INIT_CONFIG;
 			}
 			if (isButtonPressed(3)){
-				status = BLINK_MODE;
+				mode = BLINK_MODE;
 				setTimer(0,50);
+				resetLED();
 			}
 			break;
-		case INIT_CONFIG:
+		case CONFIG:
 			fsm_config_run();
 			if (isButtonPressed(3)){
-				status = BLINK_MODE;
+				mode = BLINK_MODE;
 				setTimer(0,50);
+				resetLED();
 			}
 			break;
 		case BLINK_MODE:
@@ -45,7 +55,7 @@ void fsm_run(){
 				HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_10);
 			}
 			if (isButtonPressed(2)){
-				status = INIT_SYSTEM;
+				mode = INIT_SYSTEM;
 			}
 			break;
 		default:

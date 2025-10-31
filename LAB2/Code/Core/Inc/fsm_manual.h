@@ -12,6 +12,7 @@
 #include "button.h"
 #include "software_timer.h"
 #include "global.h"
+#include "trafficLight.h"
 
 void fsm_manual_run();
 #endif /* INC_FSM_MANUAL_H_ */

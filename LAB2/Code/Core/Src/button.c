@@ -10,7 +10,7 @@ int KeyReg1[MAX_BUTTON] = { [0 ... MAX_BUTTON-1] = NORMAL_STATE };
 int KeyReg2[MAX_BUTTON] = { [0 ... MAX_BUTTON-1] = NORMAL_STATE };
 int KeyReg3[MAX_BUTTON] = { [0 ... MAX_BUTTON-1] = NORMAL_STATE };
 
-int TimeOutForKeyPress[MAX_BUTTON] = {[0 ... MAX_BUTTON -1] = 500};
+int TimeOutForKeyPress[MAX_BUTTON] = {[0 ... MAX_BUTTON -1] = 100};
 int button_pressed[MAX_BUTTON] = {[0 ... MAX_BUTTON -1] = 0};
 int flagButton[MAX_BUTTON] = {[0 ... MAX_BUTTON -1] = 0};
 int buttonHold[MAX_BUTTON] = {[0 ... MAX_BUTTON -1] = 0};
@@ -51,10 +51,10 @@ void getKeyInput(){
                 if(KeyReg3[i] == PRESSED_STATE){
                     // Vừa được nhấn
                     flagButton[i] = 1;             // set cờ nhấn
-                    TimeOutForKeyPress[i] = 500;   // reset bộ đếm giữ
+                    TimeOutForKeyPress[i] = 100;   // reset bộ đếm giữ
                 } else {
                     // Vừa được thả
-                    TimeOutForKeyPress[i] = 500;
+                    TimeOutForKeyPress[i] = 100;
                     buttonHold[i] = 0;             // clear cờ giữ
                 }
             } else {
@@ -65,7 +65,7 @@ void getKeyInput(){
                     } else {
                         // Giữ đủ lâu
                         buttonHold[i] = 1;         // set cờ giữ
-                        TimeOutForKeyPress[i] = 500;
+                        TimeOutForKeyPress[i] = 100;
                     }
                 }
             }

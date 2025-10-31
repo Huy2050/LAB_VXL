@@ -5,6 +5,7 @@
  *      Author: Admin
  */
 #include "fsm_auto.h"
+//status = INIT_AUTO;
 void fsm_auto_run(){
 	switch (status){
 		case INIT_AUTO:
@@ -30,7 +31,7 @@ void fsm_auto_run(){
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_SET);
 			if (isTimerExpired(1) == 1){
 				status = RED_AMBER_AUTO;
-				setTimer(0,time[2] * 100);
+				setTimer(1,time[2] * 100);
 			}
 			break;
 		case RED_AMBER_AUTO:

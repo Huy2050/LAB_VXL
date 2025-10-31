@@ -10,6 +10,7 @@
 void fsm_manual_run(){
 	switch (status){
 		case INIT_MANUAL:
+			resetLED();
 			status = RED_GREEN_MAN;
 		case RED_GREEN_MAN:
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
@@ -22,12 +23,6 @@ void fsm_manual_run(){
 				status = RED_AMBER_MAN;
 				setTimer(0, 200);
 			}
-//			if (isButtonPressed(2)){
-//				status = ERROR;
-//				setTimer(0,50);
-//				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
-//				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);
-//			}
 			break;
 		case RED_AMBER_MAN:
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
@@ -51,12 +46,6 @@ void fsm_manual_run(){
 				status = AMBER_RED_MAN;
 				setTimer(0, 200);
 			}
-//			if (isButtonPressed(2)){
-//				state = ERROR;
-//				setTimer(0, 50);
-//				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
-//				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_RESET);
-//			}
 			break;
 		case AMBER_RED_MAN:
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
@@ -70,15 +59,6 @@ void fsm_manual_run(){
 				setTimer(0,200);
 			}
 			break;
-//		case ERROR:
-//			if (isTimerExpired(0)){
-//				setTimer(0,50);
-//				HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_7);
-//				HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_10);
-//			}
-//			if (isButtonPressed(2)){
-//				state = INIT;
-//			}
 		default:
 			break;
 	}

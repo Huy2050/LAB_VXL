@@ -9,6 +9,10 @@
 #define INC_GLOBAL_H_
 
 #include "main.h"
+#define INIT 0
+#define AUTO 1
+#define MANUAL 2
+#define CONFIG 3
 #define INIT_SYSTEM 0
 #define INIT_AUTO 1
 #define INIT_MANUAL 2
@@ -33,6 +37,7 @@
 extern int idx_led;
 extern int time[MAX_LED];
 extern int counter[MAX_TIMER];
+extern int mode;
 extern int status;
 extern int temp[MAX_LED];
 #endif /* INC_GLOBAL_H_ */
