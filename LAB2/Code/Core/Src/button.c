@@ -64,8 +64,14 @@ void getKeyInput(){
                         TimeOutForKeyPress[i]--;
                     } else {
                         // Giữ đủ lâu
-                        buttonHold[i] = 1;         // set cờ giữ
-                        TimeOutForKeyPress[i] = 100;
+                    	if (i != 1){
+                    		buttonHold[i] = 1;         // set cờ giữ
+                    		TimeOutForKeyPress[i] = 100;
+                    	}
+                    	else {
+                    		buttonHold[i] = 1;
+                    		TimeOutForKeyPress[i] = 25;
+                    	}
                     }
                 }
             }

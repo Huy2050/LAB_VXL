@@ -23,7 +23,7 @@ void fsm_config_run(){
 				temp[0]++;
 			}
 			else if (isButtonHold(1)){
-				temp[0] += 5;
+				temp[0]++;
 			}
 			if (temp[0] > 99){
 				temp[0] = 0;
@@ -51,7 +51,7 @@ void fsm_config_run(){
 				temp[1]++;
 			}
 			else if (isButtonHold(1)){
-				temp[1] += 5;
+				temp[1]++;
 			}
 			if (temp[1] > 99){
 				temp[1] = 0;
@@ -79,7 +79,7 @@ void fsm_config_run(){
 				temp[2]++;
 			}
 			else if (isButtonHold(1)){
-				temp[2] += 5;
+				temp[2]++;
 			}
 			if (temp[2] > 99){
 				temp[2] = 0;
