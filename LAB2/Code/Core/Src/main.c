@@ -30,6 +30,7 @@
 #include "fsm_config.h"
 #include "fsm.h"
 #include "global.h"
+#include "scheduler.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -102,9 +103,14 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   setTimer(4,50);
+  SCH_Add_Task(fsm_run, 0, 25);
   while (1)
   {
-	  fsm_run();
+	  if (isTimerExpired(4)){
+	  		HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);
+	  		setTimer(4,50);
+	  }
+	  SCH_Dispatch_Tasks();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -252,6 +258,7 @@ static void MX_GPIO_Init(void)
 void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim ){
 	timerRun();
 	getKeyInput();
+	SCH_Update();
 }
 /* USER CODE END 4 */
 

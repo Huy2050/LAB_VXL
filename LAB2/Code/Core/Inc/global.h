@@ -34,6 +34,7 @@
 #define NORMAL_STATE 1
 #define PRESSED_STATE 0
 #define MAX_LED 3
+#define SCH_MAX_TASKS 10
 extern int idx_led;
 extern int time[MAX_LED];
 extern int counter[MAX_TIMER];

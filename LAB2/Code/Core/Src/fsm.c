@@ -7,10 +7,6 @@
 
 #include "fsm.h"
 void fsm_run(){
-	if (isTimerExpired(4)){
-		HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);
-		setTimer(4,50);
-	}
 	switch (mode){
 		case INIT_SYSTEM:
 			mode = AUTO;
