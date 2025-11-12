@@ -6,6 +6,9 @@
  */
 #include "global.h"
 
+void blink_LED(){
+	HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);
+}
 int time[MAX_LED] = {10,7,3};
 int counter[MAX_TIMER] = {[0 ... MAX_TIMER - 1] = 0};
 int mode = INIT_SYSTEM;

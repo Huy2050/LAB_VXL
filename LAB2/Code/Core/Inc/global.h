@@ -9,6 +9,7 @@
 #define INC_GLOBAL_H_
 
 #include "main.h"
+#include "software_timer.h"
 #define INIT 0
 #define AUTO 1
 #define MANUAL 2
@@ -41,4 +42,5 @@ extern int counter[MAX_TIMER];
 extern int mode;
 extern int status;
 extern int temp[MAX_LED];
+void blink_LED();
 #endif /* INC_GLOBAL_H_ */

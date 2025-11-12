@@ -10,6 +10,8 @@
 
 #include "main.h"
 #include "global.h"
+#include "software_timer.h"
+#include "button.h"
 #define NO_TASK_ID 0
 void SCH_Update();
 void SCH_Dispatch_Tasks();
