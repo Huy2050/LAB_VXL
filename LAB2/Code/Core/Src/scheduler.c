@@ -55,7 +55,7 @@ uint32_t SCH_Add_Task(void (*pFunction)(), uint32_t delay, uint32_t period) {
 
     // Cập nhật delay của task sau (nếu có)
     if (SCH_task[index].pTask != 0) {
-        SCH_task[index].Delay -= delay;
+        SCH_task[index + 1].Delay -= delay;
     }
 
     // Gán thông tin task mới

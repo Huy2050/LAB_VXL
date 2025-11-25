@@ -103,8 +103,8 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   SCH_Add_Task(fsm_run, 0, 25);
-  SCH_Add_Task(timerRun, 0, 10);
-  SCH_Add_Task(getKeyInput, 0, 10);
+  SCH_Add_Task(timerRun, 0, 1);
+  SCH_Add_Task(getKeyInput, 0, 1);
   SCH_Add_Task(blink_LED, 0, 50);
   while (1)
   {
@@ -170,7 +170,7 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 9999;
+  htim2.Init.Prescaler = 7999;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim2.Init.Period = 9;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
