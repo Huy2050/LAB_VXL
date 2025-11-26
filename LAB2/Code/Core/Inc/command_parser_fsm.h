@@ -7,7 +7,8 @@
 
 #ifndef INC_COMMAND_PARSER_FSM_H_
 #define INC_COMMAND_PARSER_FSM_H_
-
-void fsm_parser_run();
-
+#include "main.h"
+#include "global.h"
+#include <string.h>
+void command_parser_fsm();
 #endif /* INC_COMMAND_PARSER_FSM_H_ */
