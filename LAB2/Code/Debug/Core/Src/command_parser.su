@@ -1,0 +1,2 @@
+command_parser.c:15:6:command_parser_fsm	8	static
+command_parser.c:56:6:Check	8	static

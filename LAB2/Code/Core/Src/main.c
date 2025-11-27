@@ -22,10 +22,11 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "fsm_uart.h"
-#include "command_parser_fsm.h"
+#include "command_parser.h"
+#include "uart.h"
 #include "software_timer.h"
 #include "scheduler.h"
+#include "global.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -68,8 +69,8 @@ static void MX_ADC1_Init(void);
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 	if(huart->Instance == USART2){
 		HAL_UART_Transmit(&huart2, &temp, 1, 50);
-		HAL_UART_Receive_IT(&huart2, &temp, 1);
 		buffer_flag = 1;
+		HAL_UART_Receive_IT(&huart2, &temp, 1);
 	}
 }
 /* USER CODE END 0 */
@@ -109,8 +110,9 @@ int main(void)
   HAL_UART_Receive_IT(&huart2, &temp, 1);
   HAL_ADC_Start(&hadc1);
   SCH_Add_Task(timerRun,0,1);
-  SCH_Add_Task(Check, 0, 1);
-  SCH_Add_Task(uart_communication_fsm, 10, 10);
+  SCH_Add_Task(blink_LED, 0, 50);
+  SCH_Add_Task(uart_communication_fsm, 0, 25);
+  SCH_Add_Task(Check, 0 , 25);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -118,7 +120,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+	  SCH_Dispatch_Tasks();
     /* USER CODE BEGIN 3 */
   }
 

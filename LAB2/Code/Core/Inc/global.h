@@ -22,5 +22,6 @@ extern int status;
 extern uint8_t temp;
 extern uint8_t buffer_flag;
 extern uint8_t command_flag; // Để fsm_uart dùng được
+extern char tx_buffer[50];
 void blink_LED();
 #endif /* INC_GLOBAL_H_ */
