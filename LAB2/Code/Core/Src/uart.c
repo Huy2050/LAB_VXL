@@ -22,25 +22,18 @@ void uart_communication_fsm() {
             if (command_flag == 1) {
                 command_flag = 0; // Xóa cờ lệnh đã xử lý
 
-                // 1. Đọc giá trị ADC (Chỉ đọc 1 lần tại đây)
+                // Đọc giá trị ADC
                 ADC_value = HAL_ADC_GetValue(&hadc1);
 
-                // 2. Đóng gói dữ liệu vào buffer (Lưu lại để dùng cho việc gửi lại sau này)
+
                 sprintf(tx_buffer, "!ADC=%lu#\r\n", ADC_value);
 
-                // 3. Gửi lần đầu tiên
+                // Gửi lần đầu
                 HAL_UART_Transmit(&huart2, (uint8_t*)tx_buffer, strlen(tx_buffer), 1000);
 
-                // 4. Chuyển trạng thái và đặt Timer chờ 3 giây
+                // Chờ 3s lệnh OK, nếu không gửi lại
                 status_uart = ADC_WAIT_OK;
-
-                // setTimer(0, 300) -> 300 * 10ms = 3000ms = 3s
-                // (Giả sử timer interrupt của bạn là 10ms)
-                setTimer(0, 300);
-            }
-            // Nếu nhận !OK# khi đang rảnh thì không làm gì (hoặc xóa cờ)
-            else if (command_flag == 2) {
-                command_flag = 0;
+                setTimer(0, 3000);
             }
             break;
 
@@ -52,14 +45,10 @@ void uart_communication_fsm() {
             }
             // Kiểm tra Timeout 3 giây
             else if (isTimerExpired(0) == 1) {
-                // Yêu cầu: "The value is kept as the previous packet"
-                // -> KHÔNG đọc lại ADC ở đây.
-                // -> Chỉ gửi lại nội dung cũ trong str_buffer.
-
+            	// Gửi lại nội dung cũ
                 HAL_UART_Transmit(&huart2, (uint8_t*)tx_buffer, strlen(tx_buffer), 1000);
-
-                // Đặt lại Timer để tiếp tục chờ thêm 3s nữa
-                setTimer(0, 300);
+                // Đặt lại Timer
+                setTimer(0, 3000);
             }
             break;
 

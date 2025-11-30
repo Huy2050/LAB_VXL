@@ -5,10 +5,8 @@
  *      Author: Admin
  */
 #include "command_parser.h"
-//uint8_t buffer[MAX_BUFFER_SIZE];
-//uint8_t idx_buffer = 0;
 uint8_t status_parser = INIT; // Trạng thái hiện tại
-uint8_t command_data[30];     // Lưu nội dung lệnh (ví dụ: RST, OK)
+uint8_t command_data[30];     // Lưu nội dung lệnh
 uint8_t command_index = 0;
 
 
@@ -26,9 +24,8 @@ void command_parser_fsm() {
             if (temp == '#') {
                 status_parser = INIT;
 
-                // --- THÊM DÒNG NÀY ĐỂ AN TOÀN ---
+                //thêm kết thúc lệnh
                 command_data[command_index] = '\0';
-                // --------------------------------
 
                 if (strcmp((char*)command_data, "RST") == 0) {
                     command_flag = 1;
@@ -42,7 +39,7 @@ void command_parser_fsm() {
                 memset(command_data, 0, 30);
             }
             else {
-                // Chỉ lưu nếu chưa tràn mảng
+                // Nếu còn trống thì thêm
                 if (command_index < 29) {
                     command_data[command_index++] = temp;
                 }
